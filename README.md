@@ -37,3 +37,23 @@ To analyze a different PDF:
    ```bash
    python pdf_number_searcher.py
    ```
+
+## Bugs and Issues
+
+1. **No Numbers Found**  
+   If no numbers are found in the PDF document, the program returns `None`. This behavior is fine for simple use cases, but would likely need to be changed if used in a larger application.
+
+2. **Natural Language Context Not Accounted For**  
+   The script does not interpret context like "in millions" or "thousands" that may accompany a number. For example, a value written as "Revenue (in millions): 32" will be interpreted as `32`, not `32,000,000`.
+
+3. **Regex Limitations**  
+   The current regular expression aims to catch most formats of numeric values (e.g., "$1,234.56", "1234.56", "1,000", etc.), but it hasn't been tested against every edge case. Numbers with unusual formatting or trailing units (e.g., "1234USD" or "($5,000)") may be missed or misinterpreted.
+
+4. **No OCR or Scanned Text Handling**  
+   This script only works with PDFs that contain extractable text. If your PDF is scanned or image-based, PyMuPDF will not extract numbers unless OCR (Optical Character Recognition) has been applied beforehand.
+
+5. **Page Tokenization Is Naive**  
+   Numbers are detected by splitting text on whitespace. If a number is broken across lines, columns, or formatting artifacts, it might not be recognized properly.
+
+6. **Non-Numeric Symbols**  
+   Symbols like `($1,000)` or `1,000.00*` are partially accounted for using the regex, but some edge cases may still throw off the parsing or conversion process.
