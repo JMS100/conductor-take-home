@@ -57,7 +57,7 @@ class PDFNumberSearcher:
                 try:
                         num = float(cleaned.replace(',', ''))
                         max_num = max(max_num, num)
-                except ValueError: # Handle case of multiple . (ex 12..32) or other edge cases
+                except ValueError: # Handle case of multiple .'s (ex. 12..32) or other edge cases
                         continue
         return max_num if max_num != -inf else None
 
@@ -73,7 +73,7 @@ class PDFNumberSearcher:
             max_page = self.get_max_on_page(page_number)
             if max_page is not None:   
                 max_val = max(max_page, max_val)
-        return max_val if max_val != -inf else None # Returning None is not great, so check for that
+        return max_val if max_val != -inf else None # Returning None is not great, likely change in future use
 
 if __name__ == "__main__":
     # Example usage: finds the largest number in "FY25.pdf"
